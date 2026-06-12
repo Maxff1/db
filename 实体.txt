@@ -1,0 +1,98 @@
+# 校运会管理系统 – 实体清单
+
+## User（用户）
+- **说明**：系统用户，通过角色区分权限
+- **核心属性**：user_id, username, password, role, name, department
+- **角色枚举**：管理员 / 校体育处 / 裁判 / 运动员 / 观众
+- **外键**：无
+- **对应操作**：创建、删除、分配角色（由管理员操作）
+
+## Event（赛事）
+- **说明**：运动会赛事
+- **核心属性**：event_id, name, description, start_date, end_date, status
+- **外键**：created_by → User
+- **对应操作**：创建、编辑、删除、查看；管理员可维护任意赛事
+
+## Event_Item（项目）
+- **说明**：赛事下的具体比赛项目
+- **核心属性**：item_id, name, type, gender_restriction, min_members, max_members, max_registrations
+- **外键**：event_id → Event
+- **类型枚举**：个人 / 团体
+- **性别限制枚举**：男 / 女 / 混合
+- **对应操作**：添加项目、配置性别/人数/名额
+
+## Venue（场地）
+- **说明**：比赛场地
+- **核心属性**：venue_id, name, status
+- **状态枚举**：空闲 / 使用中
+- **外键**：无
+- **对应操作**：借用、归还（通过 Venue_Usage 记录）
+
+## Venue_Usage（场地占用记录）
+- **说明**：场地占用记录
+- **核心属性**：usage_id, start_time, end_time, purpose, status
+- **外键**：venue_id → Venue，schedule_id → Schedule（可空）
+- **状态枚举**：预约 / 使用中 / 已释放
+- **对应操作**：场地借用/归还、关联赛程或非赛事占用
+
+## Schedule（赛程）
+- **说明**：单场比赛排期，决定比赛时间、地点和阶段
+- **核心属性**：schedule_id, round, start_time, end_time, status
+- **外键**：item_id → Event_Item，venue_id → Venue
+- **轮次示例**：预赛 / 半决赛 / 决赛
+- **状态枚举**：已安排 / 已发布 / 已完成
+- **对应操作**：分配场地、分配时段、分配裁判、发布赛程
+
+## Officiating（执裁安排）
+- **说明**：裁判执裁安排（多对多关系）
+- **核心属性**：schedule_id, referee_id（两个字段联合作为主键）
+- **外键**：schedule_id → Schedule，referee_id → User
+- **对应操作**：为赛程分配裁判；裁判查看本人执裁场次
+
+## Participation（参赛安排）
+- **说明**：赛程的参赛安排，决定哪场比赛谁上场
+- **核心属性**：participation_id, participant_type, participant_id, lane, bib_number
+- **外键**：schedule_id → Schedule
+- **参与类型枚举**：运动员 / 队伍
+- **对应操作**：安排运动员/队伍上场，分配道次/号码布
+
+## Result（成绩）
+- **说明**：某场比赛某参赛者的最终成绩
+- **核心属性**：result_id, score_detail, rank, status
+- **外键**：participation_id → Participation，submitted_by → User（裁判），reviewed_by → User（体育处）
+- **状态枚举**：已提交 / 已审核 / 已发布
+- **对应操作**：裁判录入提交、体育处审核发布、修正已发布成绩
+- **说明**：赢输关系通过 rank（排名）和 score_detail（具体成绩）体现
+
+## Team（队伍）
+- **说明**：运动员队伍
+- **核心属性**：team_id, name
+- **外键**：captain_id → User
+- **对应操作**：队长创建队伍、解散队伍；以队伍报名团体项目
+
+## Team_Member（队伍成员关系）
+- **说明**：队伍成员关系
+- **核心属性**：team_id, athlete_id, status
+- **外键**：team_id → Team，athlete_id → User
+- **状态枚举**：已邀请 / 已加入 / 已移除
+- **对应操作**：邀请队员、移除队员、接受/拒绝邀请
+
+## Registration（报名记录）
+- **说明**：报名记录
+- **核心属性**：registration_id, status, applied_at
+- **外键**：item_id → Event_Item，athlete_id → User（个人，可空），team_id → Team（团体，可空）
+- **状态枚举**：待审核 / 已通过 / 已拒绝
+- **对应操作**：个人报名、队伍报名；自动校验名额/性别；体育处审核
+
+## Announcement（公告）
+- **说明**：系统公告或赛事通知
+- **核心属性**：announcement_id, title, content, created_at, status
+- **外键**：created_by → User，event_id → Event（可空）
+- **状态枚举**：正常 / 已删除
+- **对应操作**：发布系统级公告、发布赛事通知、删除不当公告
+
+## Operation_Log（操作日志）
+- **说明**：关键操作日志
+- **核心属性**：log_id, action, description, timestamp
+- **外键**：user_id → User
+- **对应操作**：记录用户管理、成绩修改、审核等关键动作；管理员查看
