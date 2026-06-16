@@ -1,0 +1,32 @@
+[33m581d016[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mcyx.db[m[33m, [m[1;32mdev[m[33m)[m 完成物理模型初步搭建
+[33m1fe0c5f[m[33m ([m[1;31morigin/dev[m[33m)[m Merge pull request #12 from Maxff1/LiHongRui-db
+[33me7afe22[m[33m ([m[1;31morigin/LiHongRui-db[m[33m)[m 本次添加了报名人实体，但转换为物理模型仍有问题
+[33mdedbf92[m Merge pull request #11 from Maxff1/LiHongRui-db
+[33m366c641[m 修改了外键，修改了了几项数据类型
+[33mf990162[m update：er图修改，add：完成ldm初步
+[33m547af59[m Merge pull request #10 from Maxff1/LiHongRui-db
+[33m333e750[m 添加执裁安排
+[33m389c5b3[m Merge pull request #9 from Maxff1/LiHongRui-db
+[33m20b048c[m 添加association关联表关系
+[33m55ac041[m update:er图
+[33m7720ce1[m add: 完成er图初始化
+[33m3eac32f[m add: er图
+[33m90eef39[m add: 完成最终的需求文档2
+[33m6841171[m add: 完成最终的需求文档
+[33m8a29055[m Merge branch 'dev' of https://github.com/Maxff1/- into dev
+[33m8fffe92[m Merge pull request #6 from Maxff1/LiHongRui-db
+[33m56e0411[m 只保留了角色和对应作用
+[33mf37ed82[m Merge branch 'dev' of https://github.com/Maxff1/- into dev
+[33mb208ac1[m Merge pull request #4 from Maxff1/LiHongRui-db
+[33ma0cf506[m 删除冗余多余文件：校园体育赛事管理.rqb，保留rqm主文件
+[33m5295ead[m dev临时修改：调整赛事管理文件内容
+[33me0a88f5[m Merge branch 'dev' of https://github.com/Maxff1/- into dev
+[33m15ea67d[m add: 完成学生查询功能
+[33m4b0dc48[m Merge pull request #3 from Maxff1/mao
+[33mc66056c[m[33m ([m[1;31morigin/mao[m[33m)[m add: 项目需求
+[33m31c13bb[m Merge pull request #2 from Maxff1/mao
+[33ma0cc280[m add: 完成项目需求
+[33ma6bbac0[m Merge pull request #1 from Maxff1/main
+[33m03f156d[m[33m ([m[1;32mmain[m[33m)[m Update README.md
+[33m712f4ed[m Update README.md
+[33m3e8b635[m Initial commit
